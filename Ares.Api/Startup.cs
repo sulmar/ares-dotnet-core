@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Ares.Api.Middlewares;
+using Ares.Domain.Services;
+using Ares.Infrastructure.FakeServices;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -17,6 +20,9 @@ namespace Ares.Api
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            // services.AddTransient<IMessageSender, SmsMessageSender>();
+
+            services.AddMessage();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -36,6 +42,16 @@ namespace Ares.Api
                 Trace.WriteLine($"{context.Response.StatusCode}");
 
             });
+
+       
+
+            app.UseMiddleware<LoggerMiddleware>();
+
+            app.UseMiddleware<MessageMiddleware>();
+
+            app.UseLogger();
+
+            app.UseMessage();
 
             app.Use(async (context, next) =>
             {

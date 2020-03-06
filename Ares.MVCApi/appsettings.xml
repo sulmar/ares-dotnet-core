@@ -1,0 +1,9 @@
+﻿<Configuration>
+
+  <SmsService>
+    <Url>http://sms.ares.com</Url>
+    <Timeout>500</Timeout>
+  </SmsService>
+  
+
+</Configuration>

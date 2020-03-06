@@ -18,6 +18,14 @@ namespace Ares.MVCApi
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+            .ConfigureAppConfiguration( (hostingContext, options)=>
+            {
+                string name = hostingContext.HostingEnvironment.EnvironmentName;
+
+                options.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+                options.AddJsonFile($"appsettings.{name}.json", optional: true);
+                options.AddXmlFile("appsettings.xml", optional: false);
+             })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();

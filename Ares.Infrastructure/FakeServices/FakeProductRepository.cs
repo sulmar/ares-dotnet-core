@@ -1,26 +1,21 @@
 ﻿using Ares.Domain.Models;
 using Ares.Domain.Services;
-using System;
-using System.Text;
+using System.Collections.Generic;
 using System.Linq;
 using Bogus;
-using System.Data;
 using Microsoft.Extensions.Options;
 
 namespace Ares.Infrastructure.FakeServices
 {
-
-    public class FakeCustomerRepository : FakeEntityRepository<Customer>, ICustomerRepository
+    public class FakeProductRepository : FakeEntityRepository<Product>, IProductRepository
     {
-        public FakeCustomerRepository(Faker<Customer> faker, 
-            IOptions<FakeOptions> options) : base(faker, options)
+        public FakeProductRepository(Faker<Product> faker, IOptions<FakeOptions> options) : base(faker, options)
         {
         }
 
-        public override void Remove(int id)
+        public IEnumerable<Product> Get(string color)
         {
-            Customer customer = Get(id);
-            customer.IsRemoved = true;
+            return entities.Where(p => p.Color == color).ToList();
         }
     }
 

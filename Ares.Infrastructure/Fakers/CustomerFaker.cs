@@ -6,6 +6,7 @@ using System.Text;
 
 namespace Ares.Infrastructure.Fakers
 {
+
     // dotnet add package Bogus
     public class CustomerFaker : Faker<Customer> 
     {

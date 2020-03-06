@@ -30,14 +30,29 @@ namespace Ares.MVCApi
         {
             services.AddScoped<ICustomerRepository, FakeCustomerRepository>();
             services.AddScoped<Faker<Customer>, CustomerFaker>();
+
+            services.AddScoped<IProductRepository, FakeProductRepository>();
+            services.AddScoped<Faker<Product>, ProductFaker>();
+
             services.AddScoped<IMessageSender, SmsMessageSender>();
 
+            // services.Configure<FakeOptions>(Configuration.GetSection("FakeOptions"));
+            services.Configure<FakeOptions>(config => new FakeOptions { Quantity = 3 });
             services.AddControllersWithViews();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            string url = Configuration["SmsService:Url"];
+
+            int timeout = int.Parse(Configuration["SmsService:Timeout"]);
+
+            string connectionString = Configuration.GetConnectionString("ErisConnection");
+
+            string name = env.EnvironmentName;
+
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

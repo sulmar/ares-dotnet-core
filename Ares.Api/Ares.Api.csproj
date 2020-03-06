@@ -7,4 +7,9 @@
     <StartupObject />
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Ares.Domain\Ares.Domain.csproj" />
+    <ProjectReference Include="..\Ares.Infrastructure\Ares.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
