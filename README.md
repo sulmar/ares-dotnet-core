@@ -25,3 +25,34 @@
 - ``` dotnet publish -c Release -r osx-x64``` - publikacja aplikacji dla MacOS
 - ``` dotnet add package {package-name} ``` - dodanie pakietu nuget do projektu
 - ``` dotnet remove package {package-name} ``` - usunięcie pakietu nuget do projektu
+
+
+## Konfiguracja
+
+- Utworzenie klasy
+~~~ csharp
+public class FakeOptions
+{
+    public int Quantity { get; set; }
+}
+~~~
+
+### Pobieranie konfiguracji z pliku
+
+- appsettings.json
+
+~~~ json
+"FakeOptions": {
+  "Quantity" :  200
+}
+~~~
+
+~~~ csharp
+  services.Configure<FakeOptions>(Configuration.GetSection("FakeOptions"));
+~~~
+
+### Pobieranie konfiguracji z instancji 
+ 
+~~~ csharp
+    services.Configure<FakeOptions>(config => new FakeOptions { Quantity = 3 });
+~~~
