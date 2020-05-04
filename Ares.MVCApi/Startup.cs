@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Ares.Domain.Models;
 using Ares.Domain.Services;
@@ -8,12 +9,14 @@ using Ares.Infrastructure;
 using Ares.Infrastructure.Fakers;
 using Ares.Infrastructure.FakeServices;
 using Bogus;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Ares.MVCApi
 {
@@ -42,6 +45,25 @@ namespace Ares.MVCApi
 
             services.AddScoped<ITokenService, JwtTokenService>();
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
+
+            // dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer -version 3.1.3
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["AppSettings:SecretKey"])),
+                        ValidateIssuer = false,
+                        ValidateAudience = false
+                    };
+                }
+                );
 
             services.AddScoped<IMessageSender, SmsMessageSender>();
 

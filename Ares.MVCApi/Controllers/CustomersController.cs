@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Ares.MVCApi.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class CustomersController : Controller
     {
         private readonly ILogger<CustomersController> logger;
