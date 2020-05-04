@@ -55,6 +55,10 @@ namespace Ares.MVCApi
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             })
+                .AddCookie(options => {
+                    options.LoginPath = "/Login/Index/";
+                    options.AccessDeniedPath = "/Account/Forbidden/";
+                })
                 .AddJwtBearer(options =>
                 {
                     options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
