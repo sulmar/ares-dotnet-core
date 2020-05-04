@@ -27,9 +27,16 @@ namespace Ares.Infrastructure.DbServices
 
         public IEnumerable<User> Get()
         {
-            string sql = "select * from dbo.Users";
+            string sql = "select Users.*, Addresses.* from Users left outer join Addresses on Users.HomeAddressId = Addresses.AddressId";
 
-            return connection.Query<User>(sql).ToList();
+            return connection.Query<User, Address, User>(sql, (user, address) =>
+            {
+                user.HomeAddress = address;
+
+                return user;
+            }, splitOn: "Id, AddressId")
+                .ToList();
+
         }
 
         public User Get(int id)
@@ -43,6 +50,22 @@ namespace Ares.Infrastructure.DbServices
             // select * from dbo.Users where Id = @Id
             // end
 
+
+            string sql = "select Users.*, Addresses.* from Users left outer join Addresses on Users.HomeAddressId = Addresses.AddressId where id = @Id";
+
+                return connection.Query<User, Address, User>(sql, (user, address) =>
+                {
+                    user.HomeAddress = address;
+
+                    return user;
+                }, 
+             new { @Id = id })
+
+                .FirstOrDefault();
+
+
+
+
             return connection.Query<User>("uspGetUser", new { @Id = id }, commandType: CommandType.StoredProcedure)
                 .FirstOrDefault();
 
@@ -53,6 +76,7 @@ namespace Ares.Infrastructure.DbServices
 
         public void Remove(int id)
         {
+
             throw new NotImplementedException();
         }
 

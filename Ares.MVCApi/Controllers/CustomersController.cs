@@ -25,7 +25,6 @@ namespace Ares.MVCApi.Controllers
             this.customerRepository = customerRepository;
         }
         
-
        
         public IActionResult Index()
         {

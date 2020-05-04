@@ -13,6 +13,13 @@ namespace Ares.Domain.Models
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
         public bool IsLocked { get; set; }
+        public Address HomeAddress { get; set; }
+    }
+
+    public class Address : BaseEntity
+    {
+        public string Street { get; set; }
+        public string City { get; set; }
     }
 
     public class Role : BaseEntity

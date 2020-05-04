@@ -11,6 +11,7 @@ using Ares.Infrastructure;
 using Ares.Infrastructure.DbServices;
 using Ares.Infrastructure.Fakers;
 using Ares.Infrastructure.FakeServices;
+using Ares.MVCApi.Middlewares;
 using Bogus;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -112,6 +113,8 @@ namespace Ares.MVCApi
             app.UseStaticFiles();
 
             app.UseRouting();
+
+          //  app.UseMiddleware<DynamicMiddleware>();
 
       
             app.UseAuthentication();
