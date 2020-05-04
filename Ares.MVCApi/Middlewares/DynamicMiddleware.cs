@@ -1,6 +1,5 @@
 ﻿using Ares.Domain.Models;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
@@ -10,37 +9,6 @@ using System.Threading.Tasks;
 
 namespace Ares.MVCApi.Middlewares
 {
-    [Route("api/code")]
-    public class CodesController : Controller
-    {
-        //   http://localhost/api/code/customers/10
-
-       // [HttpGet("{handler}/{id?}")]
-        //[AcceptVerbs("GET", "POST", Route = "{handler}/{id?}")]
-        //public IActionResult Get(string handler, int? id, [FromBody] dynamic item)
-        //{
-        //    dynamic model = new Customer { FirstName = "Marcin" };
-
-        //    return Ok(model);
-        //}
-
-        [HttpGet("{handler}/{id?}")]
-        public IActionResult Post(string handler, int? id, [FromBody] dynamic item)
-        {
-            dynamic model = new Customer { FirstName = "Marcin" };
-
-            return Ok(model);
-        }
-
-
-        [HttpGet("{handler}/{id?}")]
-        public IActionResult Get(string handler, int? id)
-        {
-            dynamic model = new Customer { FirstName = "Marcin" };
-
-            return Ok(model);
-        }
-    }
 
 
     public class DynamicMiddleware
