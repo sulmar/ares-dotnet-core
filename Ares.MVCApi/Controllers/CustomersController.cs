@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Ares.MVCApi.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class CustomersController : Controller
     {
         private readonly ILogger<CustomersController> logger;
@@ -29,10 +29,10 @@ namespace Ares.MVCApi.Controllers
         public IActionResult Index()
         {
 
-            if (!this.User.Identity.IsAuthenticated)
-            {
-                return BadRequest();
-            }    
+            //if (!this.User.Identity.IsAuthenticated)
+            //{
+            //    return BadRequest();
+            //}    
 
             // 
             // select phonenumber from Customers where Id = 1009

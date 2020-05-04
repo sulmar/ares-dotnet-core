@@ -16,6 +16,8 @@ namespace Ares.Infrastructure.Fakers
             RuleFor(p => p.FirstName, f => f.Person.FirstName);
             RuleFor(p => p.LastName, f => f.Person.LastName);
             RuleFor(p => p.IsLocked, f => false);
+            RuleFor(p => p.Email, f => f.Person.Email);
+            RuleFor(p => p.PhoneNumber, f => f.Person.Phone);
         }
     }
 }

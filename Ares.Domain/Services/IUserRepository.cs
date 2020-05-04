@@ -8,9 +8,4 @@ namespace Ares.Domain.Services
     public interface IUserRepository : IEntityRepository<User>
     {
     }
-
-    public interface IAuthorizationService
-    {
-        bool TryAuthorize(string userId, string hashedPassword, out User user);
-    }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Ares.Domain.Models;
 using Ares.Domain.Services;
+using Ares.Infrastructure;
 using Ares.Infrastructure.Fakers;
 using Ares.Infrastructure.FakeServices;
 using Bogus;
@@ -32,7 +33,15 @@ namespace Ares.MVCApi
             services.AddScoped<Faker<Customer>, CustomerFaker>();
 
             services.AddScoped<IProductRepository, FakeProductRepository>();
+        
             services.AddScoped<Faker<Product>, ProductFaker>();
+
+            services.AddScoped<IUserRepository, FakeUserRepository>();
+            services.AddScoped<IAuthorizationService, FakeUserRepository>();
+            services.AddScoped<Faker<User>, UserFaker>();
+
+            services.AddScoped<ITokenService, JwtTokenService>();
+            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
 
             services.AddScoped<IMessageSender, SmsMessageSender>();
 
