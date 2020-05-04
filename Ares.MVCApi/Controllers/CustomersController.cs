@@ -1,5 +1,6 @@
 ﻿using Ares.Domain.Models;
 using Ares.Domain.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace Ares.MVCApi.Controllers
 {
+    [Authorize]
     public class CustomersController : Controller
     {
         private readonly ILogger<CustomersController> logger;
@@ -21,9 +23,20 @@ namespace Ares.MVCApi.Controllers
             this.logger = logger;
             this.customerRepository = customerRepository;
         }
+        
 
+       
         public IActionResult Index()
         {
+
+            if (!this.User.Identity.IsAuthenticated)
+            {
+                return BadRequest();
+            }    
+
+            // 
+            // select phonenumber from Customers where Id = 1009
+
             IEnumerable<Customer> customers = customerRepository.Get();
 
             logger.LogInformation($"Received {customers.Count()} customers");
@@ -31,6 +44,7 @@ namespace Ares.MVCApi.Controllers
             return View(customers);
         }
 
+        [Authorize]
         public IActionResult Edit([FromServices] IMessageSender messageSender)
         {
             messageSender.Send("Edit!");

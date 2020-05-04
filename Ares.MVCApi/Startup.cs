@@ -36,8 +36,8 @@ namespace Ares.MVCApi
 
             services.AddScoped<IMessageSender, SmsMessageSender>();
 
-            // services.Configure<FakeOptions>(Configuration.GetSection("FakeOptions"));
-            services.Configure<FakeOptions>(config => new FakeOptions { Quantity = 3 });
+            services.Configure<FakeOptions>(Configuration.GetSection("FakeOptions"));
+            //services.Configure<FakeOptions>(config => new FakeOptions { Quantity = 3 });
             services.AddControllersWithViews();
         }
 
