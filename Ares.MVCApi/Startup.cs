@@ -1,11 +1,14 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Ares.Domain.Models;
 using Ares.Domain.Services;
 using Ares.Infrastructure;
+using Ares.Infrastructure.DbServices;
 using Ares.Infrastructure.Fakers;
 using Ares.Infrastructure.FakeServices;
 using Bogus;
@@ -32,6 +35,8 @@ namespace Ares.MVCApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IDbConnection>(options => new SqlConnection(Configuration.GetConnectionString("ErisConnection")));
+
             services.AddScoped<ICustomerRepository, FakeCustomerRepository>();
             services.AddScoped<Faker<Customer>, CustomerFaker>();
 
@@ -39,9 +44,12 @@ namespace Ares.MVCApi
         
             services.AddScoped<Faker<Product>, ProductFaker>();
 
-            services.AddScoped<IUserRepository, FakeUserRepository>();
-            services.AddScoped<IAuthorizationService, FakeUserRepository>();
-            services.AddScoped<Faker<User>, UserFaker>();
+            //services.AddScoped<IUserRepository, FakeUserRepository>();
+            //services.AddScoped<IAuthorizationService, FakeUserRepository>();
+            //services.AddScoped<Faker<User>, UserFaker>();
+
+            services.AddScoped<IUserRepository, DapperUserRepository>();
+            services.AddScoped<IAuthorizationService, DapperUserRepository>();
 
             services.AddScoped<ITokenService, JwtTokenService>();
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
