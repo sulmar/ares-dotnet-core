@@ -34,6 +34,8 @@ namespace Ares.Infrastructure
             ClaimsIdentity identity = new ClaimsIdentity();
             identity.AddClaim(new Claim(ClaimTypes.Email, user.Email));
             identity.AddClaim(new Claim(ClaimTypes.MobilePhone, user.PhoneNumber));
+            identity.AddClaim(new Claim(ClaimTypes.Role, "Administrator"));
+            identity.AddClaim(new Claim(ClaimTypes.Role, "User"));
          
             var securityTokenDescription = new SecurityTokenDescriptor
             {

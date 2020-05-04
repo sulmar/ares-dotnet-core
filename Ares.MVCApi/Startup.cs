@@ -48,6 +48,8 @@ namespace Ares.MVCApi
 
             // dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer -version 3.1.3
 
+            string secretKey = Configuration["AppSettings:SecretKey"];
+
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -58,7 +60,7 @@ namespace Ares.MVCApi
                     options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
                     {
                         ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["AppSettings:SecretKey"])),
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey)),
                         ValidateIssuer = false,
                         ValidateAudience = false
                     };
@@ -99,6 +101,8 @@ namespace Ares.MVCApi
 
             app.UseRouting();
 
+      
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

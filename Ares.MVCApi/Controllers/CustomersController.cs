@@ -6,11 +6,12 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Ares.MVCApi.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Administrator")]
     public class CustomersController : Controller
     {
         private readonly ILogger<CustomersController> logger;
@@ -38,6 +39,9 @@ namespace Ares.MVCApi.Controllers
             // select phonenumber from Customers where Id = 1009
 
             IEnumerable<Customer> customers = customerRepository.Get();
+
+            string? email = this.User.FindFirstValue(ClaimTypes.Email);
+
 
             logger.LogInformation($"Received {customers.Count()} customers");
 
