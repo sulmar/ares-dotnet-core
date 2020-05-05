@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace Ares.MVCApi.Controllers
@@ -28,6 +29,8 @@ namespace Ares.MVCApi.Controllers
             if (authorizationService.TryAuthorize(userModel.UserId, userModel.Password, out User user))
             {
                 var token = tokenService.Create(user);
+
+                Response.Cookies.Append("access-token", token);
 
                 return RedirectToAction("Index", "Customers");                
 

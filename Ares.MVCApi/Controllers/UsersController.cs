@@ -39,6 +39,8 @@ namespace Ares.MVCApi.Controllers
             {
                 var token = tokenService.Create(user);
 
+                Response.Cookies.Append("access-token", token);
+
                 return Ok(token);
             }
             else

@@ -64,13 +64,16 @@ namespace Ares.MVCApi
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             })
-                .AddCookie(options => {
-                    options.LoginPath = "/Login/Index/";
-                    options.AccessDeniedPath = "/Account/Forbidden/";
-                })
                 .AddJwtBearer(options =>
                 {
-                    options.SaveToken = true;
+                    options.Events = new JwtBearerEvents
+                    {
+                        OnMessageReceived = context =>
+                        {
+                            context.Token = context.Request.Cookies["access-token"];
+                            return Task.CompletedTask;
+                        }
+                    };
 
                     options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
                     {
