@@ -42,7 +42,7 @@ namespace Ares.MVCApi
             services.AddScoped<Faker<Customer>, CustomerFaker>();
 
             services.AddScoped<IProductRepository, FakeProductRepository>();
-        
+
             services.AddScoped<Faker<Product>, ProductFaker>();
 
             //services.AddScoped<IUserRepository, FakeUserRepository>();
@@ -72,7 +72,14 @@ namespace Ares.MVCApi
                         {
                             context.Token = context.Request.Cookies["access-token"];
                             return Task.CompletedTask;
-                        }
+                        },
+
+                        OnChallenge = context =>
+                        {
+                            context.Response.Redirect("login");
+                            context.HandleResponse();
+                            return Task.CompletedTask;
+                        },
                     };
 
                     options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
