@@ -5,9 +5,11 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Ares.Api.Middlewares;
+using Ares.Domain.Models;
 using Ares.Domain.Services;
 using Ares.Infrastructure.Fakers;
 using Ares.Infrastructure.FakeServices;
+using Bogus;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -22,7 +24,9 @@ namespace Ares.Api
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            // services.AddTransient<IMessageSender, SmsMessageSender>();
+            //services.AddTransient<IMessageSender, SmsMessageSender>();
+
+            services.AddSingleton<Faker<Product>, ProductFaker>();
 
             services.AddMessage();
         }
@@ -45,7 +49,7 @@ namespace Ares.Api
 
             });
 
-       
+
 
             app.UseMiddleware<LoggerMiddleware>();
 
@@ -57,11 +61,11 @@ namespace Ares.Api
 
             app.Use(async (context, next) =>
             {
-               if (context.Request.Headers.ContainsKey("Authorization"))
+                if (context.Request.Headers.ContainsKey("Authorization"))
                 {
                     next();
                 }
-               else
+                else
                 {
                     context.Response.StatusCode = 403;
                     context.Response.WriteAsync("Brak autoryzacji");
@@ -85,14 +89,15 @@ namespace Ares.Api
 
                 endpoints.MapGet("/api/products", async context =>
                 {
-                    ProductFaker productFaker = new ProductFaker();
+                    var productFaker = context.RequestServices.GetRequiredService<Faker<Product>>();
+
                     var products = productFaker.Generate(10);
 
                     string json = JsonSerializer.Serialize(products);
 
                     context.Response.Headers.Append("content-type", new Microsoft.Extensions.Primitives.StringValues("application/json"));
                     await context.Response.WriteAsync(json);
-                    
+
                 });
             });
 
