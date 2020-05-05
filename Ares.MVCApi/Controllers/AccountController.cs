@@ -36,7 +36,7 @@ namespace Ares.MVCApi.Controllers
             }
             else
             {
-                ModelState.AddModelError("", "UserId or password is incorrect");
+                ModelState.AddModelError("", "Invalid UserId or Password");
                 return View();
             }
         }
