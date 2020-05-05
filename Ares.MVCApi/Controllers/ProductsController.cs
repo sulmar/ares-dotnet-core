@@ -27,7 +27,7 @@ namespace Ares.MVCApi.Controllers
             var request = new HttpRequestMessage(HttpMethod.Get, "https://localhost:5011/api/products");
             request.Headers.Add("Accept", "application/json");
             request.Headers.Add("Authorization", "Bearer token");
-
+           
             var response = await client.SendAsync(request);
 
             if (response.IsSuccessStatusCode)
