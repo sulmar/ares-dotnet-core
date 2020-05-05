@@ -78,7 +78,7 @@ namespace Ares.MVCApi
 
                         OnChallenge = context =>
                         {
-                            context.Response.Redirect("login");
+                            context.Response.Redirect("/account/login");
                             context.HandleResponse();
                             return Task.CompletedTask;
                         },

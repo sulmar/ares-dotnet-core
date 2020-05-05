@@ -11,12 +11,11 @@ using System.Threading.Tasks;
 
 namespace Ares.MVCApi.Controllers
 {
-    public class LoginController : Controller
+    public class AccountController : Controller
     {
-        public IActionResult Index()
+        [HttpGet]
+        public IActionResult Login()
         {
-            
-
             return View(new UserModel());
         }
 
@@ -37,7 +36,8 @@ namespace Ares.MVCApi.Controllers
             }
             else
             {
-                return BadRequest(new { message = "UserId or password is incorrect" });
+                ModelState.AddModelError("", "UserId or password is incorrect");
+                return View();
             }
         }
     }
