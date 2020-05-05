@@ -7,7 +7,9 @@ namespace Ares.Infrastructure.Fakers
     {
         public ProductFaker()
         {
-
+            RuleFor(p => p.Id, f => f.IndexFaker);
+            RuleFor(p => p.Name, f => f.Commerce.ProductName());
+            RuleFor(p => p.Color, f => f.Commerce.Color());
         }
     }
 }

@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Ares.Api.Middlewares;
 using Ares.Domain.Services;
+using Ares.Infrastructure.Fakers;
 using Ares.Infrastructure.FakeServices;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -67,12 +69,11 @@ namespace Ares.Api
             });
 
 
-            app.Run(async context => 
-            {
-                var response = context.Response.WriteAsync("Hello S³awek!");
-            });
+            //app.Run(async context => 
+            //{
+            //    var response = context.Response.WriteAsync("Hello S³awek!");
+            //});
 
-            /*
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
@@ -81,9 +82,20 @@ namespace Ares.Api
                 {
                     await context.Response.WriteAsync("Hello .NET Core!");
                 });
+
+                endpoints.MapGet("/api/products", async context =>
+                {
+                    ProductFaker productFaker = new ProductFaker();
+                    var products = productFaker.Generate(10);
+
+                    string json = JsonSerializer.Serialize(products);
+
+                    context.Response.Headers.Append("content-type", new Microsoft.Extensions.Primitives.StringValues("application/json"));
+                    await context.Response.WriteAsync(json);
+                    
+                });
             });
 
-    */
         }
     }
 }
