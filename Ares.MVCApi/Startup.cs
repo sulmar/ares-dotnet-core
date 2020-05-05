@@ -70,6 +70,8 @@ namespace Ares.MVCApi
                 })
                 .AddJwtBearer(options =>
                 {
+                    options.SaveToken = true;
+
                     options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
                     {
                         ValidateIssuerSigningKey = true,
@@ -114,9 +116,17 @@ namespace Ares.MVCApi
 
             app.UseRouting();
 
-          //  app.UseMiddleware<DynamicMiddleware>();
+            //  app.UseMiddleware<DynamicMiddleware>();
 
-      
+            app.Use(async (context, next) =>
+            {
+                await next();
+
+            });
+
+
+
+
             app.UseAuthentication();
             app.UseAuthorization();
 

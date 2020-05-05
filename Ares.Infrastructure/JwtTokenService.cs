@@ -28,26 +28,23 @@ namespace Ares.Infrastructure
 
         public string Create(User user)
         {
+            var claims = new[]
+            {
+                new Claim(ClaimTypes.Email, user.Email),
+                new Claim(ClaimTypes.MobilePhone, user.PhoneNumber),
+                new Claim(ClaimTypes.Role, "Administrator"),
+                new Claim(ClaimTypes.Role, "User")
+            };
+
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(appSettings.SecretKey));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
 
-            ClaimsIdentity identity = new ClaimsIdentity();
-            identity.AddClaim(new Claim(ClaimTypes.Email, user.Email));
-            identity.AddClaim(new Claim(ClaimTypes.MobilePhone, user.PhoneNumber));
-            identity.AddClaim(new Claim(ClaimTypes.Role, "Administrator"));
-            identity.AddClaim(new Claim(ClaimTypes.Role, "User"));
-         
-            var securityTokenDescription = new SecurityTokenDescriptor
-            {
-                Subject = identity,
-                Expires = DateTime.UtcNow.AddMinutes(15),
-                SigningCredentials = credentials,
-            };
+            var securityToken = new JwtSecurityToken(
+                claims: claims,
+                expires: DateTime.UtcNow.AddMinutes(15),
+                signingCredentials: credentials);
 
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var securityToken = tokenHandler.CreateToken(securityTokenDescription);
-
-            string token = tokenHandler.WriteToken(securityToken);
+            var token = new JwtSecurityTokenHandler().WriteToken(securityToken);
 
             return token;
 
