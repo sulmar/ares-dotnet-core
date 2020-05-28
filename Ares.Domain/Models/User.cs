@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace Ares.Domain.Models
@@ -10,6 +11,21 @@ namespace Ares.Domain.Models
         public string HashedPassword { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+
+        //public string FullName
+        //{
+        //    get
+        //    {
+        //        string initial = FirstName.Substring(0, 1) + LastName.Substring(0, 1);
+
+        //        return $"{initial} {FirstName} {LastName}";
+        //    }
+        //}
+
+        public string Initial => FirstName.Substring(0, 1) + LastName.Substring(0, 1);
+        public string FullName => $"{Initial} {FirstName} {LastName}";
+
+
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
         public bool IsLocked { get; set; }

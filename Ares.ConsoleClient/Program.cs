@@ -1,4 +1,8 @@
-﻿using System;
+﻿using Ares.Domain.Services;
+using Ares.Infrastructure.Fakers;
+using Ares.Infrastructure.FakeServices;
+using Microsoft.Extensions.Options;
+using System;
 
 namespace Ares.ConsoleClient
 {
@@ -8,9 +12,12 @@ namespace Ares.ConsoleClient
         {
             Console.WriteLine("Hello World!");
 
+
+            GetProductsTest();
+
             // ExtentionMethodTests.Test();
 
-            GenericTypesTests.Test();
+           // GenericTypesTests.Test();
 
             Console.WriteLine("Press any key to exit.");
             Console.ReadKey();
@@ -25,6 +32,21 @@ namespace Ares.ConsoleClient
             //    .WithSubject("Lorem")
             //    .Call();
 
+
+        }
+
+        private static void GetProductsTest()
+        {
+            IOptions<FakeOptions> options = Options.Create(new FakeOptions { Quantity = 100 });
+
+            IProductRepository productRepository = new FakeProductRepository(new ProductFaker(), options);
+
+            var products = productRepository.Get("red");
+
+            foreach (var product in products)
+            {
+                Console.WriteLine($"{product.Name} {product.Color}");
+            }
 
         }
     }
