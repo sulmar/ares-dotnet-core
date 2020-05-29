@@ -56,3 +56,10 @@ public class FakeOptions
 ~~~ csharp
     services.Configure<FakeOptions>(config => new FakeOptions { Quantity = 3 });
 ~~~
+
+
+## REDIS
+~~~
+docker pull redis:latest
+~~~
+
