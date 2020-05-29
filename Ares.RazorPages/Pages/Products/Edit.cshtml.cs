@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Caching.Distributed;
 using Ares.RazorPages.Extensions;
+using Microsoft.Extensions.Logging;
 
 namespace Ares.RazorPages.Pages.Products
 {
@@ -17,10 +18,13 @@ namespace Ares.RazorPages.Pages.Products
         private readonly IProductRepository productRepository;
         private readonly IDistributedCache distributedCache;
 
-        public EditModel(IProductRepository productRepository, IDistributedCache distributedCache)
+        private readonly ILogger<EditModel> logger;
+
+        public EditModel(IProductRepository productRepository, IDistributedCache distributedCache, ILogger<EditModel> logger)
         {
             this.productRepository = productRepository;
             this.distributedCache = distributedCache;
+            this.logger = logger;
         }
 
         [BindProperty]
@@ -28,6 +32,7 @@ namespace Ares.RazorPages.Pages.Products
 
         public IActionResult OnGet(int id)
         {
+          
             Product = distributedCache.Get<Product>($"product-{id}");
 
             if (Product == null)
@@ -35,6 +40,8 @@ namespace Ares.RazorPages.Pages.Products
                 Product = productRepository.Get(id);
 
                 distributedCache.Set<Product>($"product-{id}", Product);
+
+                logger.LogInformation($"Hello {Product.Name}");
             }
 
             if (Product == null)

@@ -32,7 +32,15 @@ namespace Ares.RazorPages
             services.AddSingleton<Faker<Product>, ProductFaker>();
             services.Configure<FakeOptions>(Configuration.GetSection("FakeOptions"));
 
-            services.AddDistributedMemoryCache();
+            // services.AddDistributedMemoryCache();
+
+            // dotnet add package Microsoft.Extensions.Caching.Redis
+
+            services.AddDistributedRedisCache(options =>
+            {
+                options.Configuration = "localhost:6379";
+                options.InstanceName = "ares";
+            });
 
             services.AddRazorPages();
         }
