@@ -96,5 +96,10 @@ namespace Ares.Infrastructure.DbServices
 
             return user != null;
         }
+
+        public void Update(User entity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

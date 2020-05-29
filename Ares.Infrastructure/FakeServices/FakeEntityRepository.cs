@@ -41,6 +41,12 @@ namespace Ares.Infrastructure.FakeServices
         {
             entities.Remove(Get(id));
         }
+
+        public void Update(TEntity entity)
+        {
+            Remove(entity.Id);
+            Add(entity);
+        }
     }
 
     //public class FakeCustomerRepository : ICustomerRepository

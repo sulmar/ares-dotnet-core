@@ -1,0 +1,16 @@
+﻿@page "{id}"
+@model Ares.RazorPages.Pages.Products.EditModel
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+
+<form method="post">
+    <input type="hidden" asp-for="Product.Id" />
+    <input type="text" asp-for="Product.Name" />
+    <input type="text" asp-for="Product.UnitPrice" />
+
+    <button type="submit">Save</button>
+</form>

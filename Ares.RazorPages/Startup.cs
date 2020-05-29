@@ -32,6 +32,8 @@ namespace Ares.RazorPages
             services.AddSingleton<Faker<Product>, ProductFaker>();
             services.Configure<FakeOptions>(Configuration.GetSection("FakeOptions"));
 
+            services.AddDistributedMemoryCache();
+
             services.AddRazorPages();
         }
 
