@@ -12,6 +12,12 @@ using Microsoft.Extensions.Logging;
 
 namespace Ares.RazorPages.Pages.Products
 {
+    public class Location
+    {
+        public int Lat { get; set; }
+        public int Lng { get; set; }
+    }
+
     public class EditModel : PageModel
     {
 
@@ -30,8 +36,9 @@ namespace Ares.RazorPages.Pages.Products
         [BindProperty]
         public Product Product { get; set; }
 
-        public IActionResult OnGet(int id)
+        public IActionResult OnGet(int id, string param1, [FromQuery] Location location)
         {
+            // var param1 = this.Request.Query["param1"];
           
             Product = distributedCache.Get<Product>($"product-{id}");
 
