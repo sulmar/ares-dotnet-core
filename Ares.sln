@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ares.Infrastructure", "Ares
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ares.ConsoleClient", "Ares.ConsoleClient\Ares.ConsoleClient.csproj", "{E575A9F3-181C-4A01-9B65-143B638F21A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ares.RazorPages", "Ares.RazorPages\Ares.RazorPages.csproj", "{C7C2D398-9FEC-44F0-BEE1-5773B5B42D46}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ares.RazorPages", "Ares.RazorPages\Ares.RazorPages.csproj", "{C7C2D398-9FEC-44F0-BEE1-5773B5B42D46}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ares.AresForms", "Ares.AresForms\Ares.AresForms.csproj", "{1BE8D0BF-1CBB-4909-B350-BB1EAEF45774}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{C7C2D398-9FEC-44F0-BEE1-5773B5B42D46}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C7C2D398-9FEC-44F0-BEE1-5773B5B42D46}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C7C2D398-9FEC-44F0-BEE1-5773B5B42D46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BE8D0BF-1CBB-4909-B350-BB1EAEF45774}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BE8D0BF-1CBB-4909-B350-BB1EAEF45774}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BE8D0BF-1CBB-4909-B350-BB1EAEF45774}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BE8D0BF-1CBB-4909-B350-BB1EAEF45774}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

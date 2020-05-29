@@ -10,19 +10,20 @@ using Microsoft.Extensions.Options;
 namespace Ares.Infrastructure.FakeServices
 {
 
-    public class FakeCustomerRepository : FakeEntityRepository<Customer>, ICustomerRepository
-    {
-        public FakeCustomerRepository(Faker<Customer> faker, 
-            IOptions<FakeOptions> options) : base(faker, options)
-        {
-        }
 
-        public override void Remove(int id)
-        {
-            Customer customer = Get(id);
-            customer.IsRemoved = true;
-        }
+    public class FakeCustomerRepository : FakeEntityRepository<Customer>, ICustomerRepository
+{
+    public FakeCustomerRepository(Faker<Customer> faker,
+        IOptions<FakeOptions> options) : base(faker, options)
+    {
     }
+
+    public override void Remove(int id)
+    {
+        Customer customer = Get(id);
+        customer.IsRemoved = true;
+    }
+}
 
     //public class FakeCustomerRepository : ICustomerRepository
     //{

@@ -1,10 +1,12 @@
-﻿using Ares.Domain.Services;
+﻿using Ares.Domain.Models;
+using Ares.Domain.Services;
 using Ares.Infrastructure.Fakers;
 using Ares.Infrastructure.FakeServices;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics.Tracing;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -181,7 +183,9 @@ namespace Ares.ConsoleClient
         {
             Console.WriteLine($"#{Thread.CurrentThread.ManagedThreadId} Hello World!");
 
-            DownloadsTest();
+            DynamicHtmlTest();
+
+           //  DownloadsTest();
 
            // DownloadsTimerTest();
 
@@ -249,6 +253,21 @@ namespace Ares.ConsoleClient
             //    .WithSubject("Lorem")
             //    .Call();
 
+
+        }
+
+        private static void DynamicHtmlTest()
+        {
+
+            IFormRepository formRepository = new FakeFormRepository();
+
+            Form form = formRepository.Get("customers");
+
+            IVisitor visitor = new HtmlVisitor();
+
+            form.Accept(visitor);
+
+            Console.WriteLine(visitor.Output);
 
         }
 
