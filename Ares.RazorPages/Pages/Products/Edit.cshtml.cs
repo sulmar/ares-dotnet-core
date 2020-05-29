@@ -70,7 +70,22 @@ namespace Ares.RazorPages.Pages.Products
 
             //productRepository.Update(Product);
 
+            TempData["Message"] = $"Product {Product.Name} was changed.";
+
             return RedirectToPage("./Details", new { Id = Product.Id });
+        }
+
+
+        public IActionResult OnPostNotificationPreferences(int id)
+        {
+            TempData["Message"] = "You have turned on email notifications";
+
+            // return Partial("_ImagePartial");
+
+            Product = distributedCache.Get<Product>($"product-{id}");
+
+            // return Partial("_ImagePartial");
+            return Page();
         }
     }
 }

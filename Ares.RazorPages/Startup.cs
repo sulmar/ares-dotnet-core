@@ -36,11 +36,15 @@ namespace Ares.RazorPages
 
             // dotnet add package Microsoft.Extensions.Caching.Redis
 
+            services.AddSession();
+
             services.AddDistributedRedisCache(options =>
             {
                 options.Configuration = "localhost:6379";
                 options.InstanceName = "ares";
             });
+
+           
 
             services.AddRazorPages();
         }

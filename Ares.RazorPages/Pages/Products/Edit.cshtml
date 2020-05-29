@@ -1,4 +1,4 @@
-﻿@page "{id}"
+﻿@page "{id}/{handler?}"
 @model Ares.RazorPages.Pages.Products.EditModel
 @{
     ViewData["Title"] = "Edit";
@@ -14,3 +14,14 @@
 
     <button type="submit">Save</button>
 </form>
+
+<partial name="_ImagePartial" />
+
+@await Html.PartialAsync("_ImagePartial")
+
+<form method="post" asp-page-handler="NotificationPreferences">
+
+
+    <button type="submit">Save</button>
+</form>
+
