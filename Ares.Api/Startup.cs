@@ -55,6 +55,8 @@ namespace Ares.Api
 
             app.UseMiddleware<MessageMiddleware>();
 
+            app.UseMiddleware<ElapsedTimeMiddleware>();
+
             app.UseLogger();
 
             app.UseMessage();
