@@ -62,9 +62,7 @@ namespace Ares.AresForms.Middlewares
                 }
             }
 
-           
-
-
+            await next(context);
         }
     }
 }
