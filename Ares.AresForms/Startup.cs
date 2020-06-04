@@ -1,11 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Ares.AresForms.Middlewares;
-using Ares.Domain.Models;
-using Ares.Domain.Services;
-using Ares.Infrastructure.FakeServices;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -20,8 +13,7 @@ namespace Ares.AresForms
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<IFormRepository, FakeFormRepository>();
-            services.AddTransient<IVisitor, HtmlVisitor>();
+            services.AddAresForms();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
