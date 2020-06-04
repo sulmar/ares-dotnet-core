@@ -34,7 +34,9 @@ namespace Ares.AresForms
 
             app.UseStaticFiles();
 
-            app.UseMiddleware<AresFormsMiddleware>();
+            // app.UseMiddleware<AresFormsMiddleware>();
+
+            app.UseAresForms("/forms");
 
             app.UseRouting();
 
