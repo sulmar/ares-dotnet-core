@@ -32,7 +32,7 @@ namespace Ares.Infrastructure.FakeServices
             return entities;
         }
 
-        public TEntity Get(int id)
+        public virtual TEntity Get(int id)
         {
             return entities.SingleOrDefault(e => e.Id == id);
         }

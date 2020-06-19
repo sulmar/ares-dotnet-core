@@ -22,8 +22,5 @@ namespace Ares.RazorPages.Extensions
 
             cache.SetString(key, json);
         }
-
-
-
     }
 }

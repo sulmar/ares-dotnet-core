@@ -7,6 +7,8 @@ using Microsoft.Extensions.Options;
 using Bogus.Extensions;
 using Ares.Domain.Models.SearchCriterias;
 using System.Runtime.InteropServices;
+using Bogus.DataSets;
+using System;
 
 namespace Ares.Infrastructure.FakeServices
 {
@@ -14,6 +16,16 @@ namespace Ares.Infrastructure.FakeServices
     {
         public FakeProductRepository(Faker<Product> faker, IOptions<FakeOptions> options) : base(faker, options)
         {
+        }
+
+        public override Product Get(int id)
+        {
+            Product product = base.Get(id);
+
+            if (product!=null)
+                product.LastAccess = DateTime.Now;
+
+            return product;
         }
 
         private bool Filter(Product product, string color)
