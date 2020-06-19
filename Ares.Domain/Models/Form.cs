@@ -57,50 +57,6 @@ namespace Ares.Domain.Models
 
 	}
 
-	public interface IVisitor
-	{
-		void Visit(TextControl control);
-		void Visit(CheckboxControl control);
-		void Visit(ButtonControl control);
-
-		void Visit(Section control);
-
-		string Output { get; }
-	}
-
-	public class HtmlVisitor : IVisitor
-	{
-		private string output;
-
-		public string Output
-		{
-			get
-			{
-				return output;
-			}
-		}
-
-		public void Visit(TextControl control)
-		{
-			this.output += $"<span>{control.Caption}</span><input type='text' value='{control.Value}'></input>";
-		}
-
-		public void Visit(CheckboxControl control)
-		{
-			this.output += $"<span>{control.Caption}</span><input type='checkbox' value='{control.Value}'></input>";
-		}
-
-		public void Visit(ButtonControl control)
-		{
-			this.output += $"<button><img src='/images/image.png'/>{control.Caption}</button>";
-		}
-
-        public void Visit(Section control)
-        {
-			this.output += $"<div>{control.Caption}</div>";
-		}
-    }
-
 
     public class TextControl : Control<string>
     {
