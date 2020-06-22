@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ares.RazorPages", "Ares.Raz
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ares.AresForms", "Ares.AresForms\Ares.AresForms.csproj", "{1BE8D0BF-1CBB-4909-B350-BB1EAEF45774}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ares.SessionRedis", "Ares.SessionRedis\Ares.SessionRedis.csproj", "{2EB8194E-DC93-4111-B8FE-688DF8C943D7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ares.SessionRedis", "Ares.SessionRedis\Ares.SessionRedis.csproj", "{2EB8194E-DC93-4111-B8FE-688DF8C943D7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
