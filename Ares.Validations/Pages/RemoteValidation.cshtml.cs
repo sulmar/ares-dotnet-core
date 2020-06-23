@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Ares.Validations.IServices;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -9,12 +10,14 @@ namespace Ares.Validations.Pages
 {
     public class RemoteValidationModel : PageModel
     {
-        [PageRemote(
-       ErrorMessage = "Duplicate Email Address",
-       AdditionalFields = "__RequestVerificationToken",
-       HttpMethod = "post",
-       PageHandler = "CheckEmail"
-   )]
+        private readonly ICustomerService customerService;
+
+        public RemoteValidationModel(ICustomerService customerService)
+        {
+            this.customerService = customerService;
+        }
+
+       
         [BindProperty]
         public string Email { get; set; }
 
@@ -30,8 +33,7 @@ namespace Ares.Validations.Pages
 
         public JsonResult OnPostCheckEmail()
         {
-            var existingEmails = new[] { "jane@test.com", "claire@test.com", "dave@test.com" };
-            var valid = !existingEmails.Contains(Email);
+            var valid = !customerService.ExistsEmail(Email);
             return new JsonResult(valid);
         }
 
