@@ -1,0 +1,36 @@
+﻿@page
+@model Ares.Validations.Pages.ProductModel
+@{
+    ViewData["Title"] = "Product";
+}
+
+<h1>Product</h1>
+
+
+<form method="post">
+    <label asp-for="Product.Name" class="control-label" />
+    <input type="text" asp-for="Product.Name" class="form-control" />
+    <span asp-validation-for="Product.Name" class="text-danger"></span>
+
+
+    <label asp-for="Product.Color" class="control-label" />
+    <input type="text" asp-for="Product.Color" class="form-control" />
+    <span asp-validation-for="Product.Color" class="text-danger"></span>
+
+
+    <label asp-for="Product.UnitPrice" class="control-label" />
+    <input type="text" asp-for="Product.UnitPrice" class="form-control" />
+    <span asp-validation-for="Product.UnitPrice" class="text-danger"></span>
+
+    <input type="submit" />
+</form>
+
+
+
+@section scripts{
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <partial name="_ValidationScriptsPartial" />
+
+    <script src="~/lib/jquery-ajax-unobtrusive/dist/jquery.unobtrusive-ajax.js"></script>
+
+}

@@ -2,8 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Ares.Domain.Models;
+using Ares.Domain.Validations;
 using Ares.Validations.IServices;
 using Ares.Validations.Services;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -25,8 +29,17 @@ namespace Ares.Validations
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+           
+
+
             services.AddSingleton<ICustomerService, FakeCustomerService>();
-            services.AddRazorPages();
+
+            // dotnet add package FluentValidation.AspNetCore
+            services.AddRazorPages().AddFluentValidation(options =>
+                  options.RegisterValidatorsFromAssemblyContaining<ProductValidator>());
+
+            // services.AddTransient<IValidator<Product>, ProductValidator>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

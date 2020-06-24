@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Ares.Validations.IServices;
+using Ares.Validations.ValidationAttributes;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -17,8 +19,8 @@ namespace Ares.Validations.Pages
             this.customerService = customerService;
         }
 
-       
 
+        [EmailAddress]
         [PageRemote(
             PageHandler = "CheckEmail",
             HttpMethod = "post",
@@ -29,11 +31,12 @@ namespace Ares.Validations.Pages
         public string Email { get; set; }
 
         [PageRemote(
-          PageHandler = "CheckEmail",
+          PageHandler = "CheckPhoneNumber",
           HttpMethod = "post",
-          ErrorMessage = "Duplicate Email Address",
+          ErrorMessage = "Duplicate Phone Number",
           AdditionalFields = "__RequestVerificationToken"
           )]
+        [MyValidation]
         [BindProperty]
         public string PhoneNumber { get; set; }
 
@@ -51,6 +54,13 @@ namespace Ares.Validations.Pages
         {
             
             var valid = !customerService.ExistsEmail(Email);
+            return new JsonResult(valid);
+        }
+
+        public JsonResult OnPostCheckPhoneNumber()
+        {
+
+            var valid = PhoneNumber.StartsWith("555");
             return new JsonResult(valid);
         }
 
