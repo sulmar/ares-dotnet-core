@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace Ares.MVCApi.Controllers
 {
+    [AutoValidateAntiforgeryToken]
     [Authorize(Roles = "Administrator")]
     public class CustomersController : Controller
     {

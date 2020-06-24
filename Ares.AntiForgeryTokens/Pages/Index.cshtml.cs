@@ -8,6 +8,8 @@ using Microsoft.Extensions.Logging;
 
 namespace Ares.AntiForgeryTokens.Pages
 {
+    // lokalne wyłączenie weryfikacji po stronie serwera
+    // [IgnoreAntiforgeryToken(Order = 1001)]
     public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
