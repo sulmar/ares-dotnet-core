@@ -32,6 +32,19 @@ namespace Ares.SessionRedis
             services.AddSingleton<Faker<Product>, ProductFaker>();
             services.Configure<FakeOptions>(Configuration.GetSection("FakeOptions"));
 
+
+            // dotnet add package Microsoft.Extensions.Caching.Redis
+            services.AddDistributedRedisCache(options =>
+            {
+                options.Configuration = "localhost:6379";
+            });
+
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromSeconds(60);
+            });
+
+
             services.AddRazorPages();
         }
 
@@ -51,6 +64,8 @@ namespace Ares.SessionRedis
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            app.UseSession();
 
             app.UseRouting();
 

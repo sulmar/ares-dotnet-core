@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Ares.Domain.Models;
 using Ares.Domain.Services;
+using Ares.SessionRedis.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -22,7 +23,14 @@ namespace Ares.SessionRedis.Pages.Products
 
         public void OnGet(int id)
         {
-            Product = productRepository.Get(id);
+            Product = HttpContext.Session.GetJson<Product>($"product-{id}");
+
+            if (Product == null)
+            {
+                Product = productRepository.Get(id);
+
+                HttpContext.Session.SetJson($"product-{id}", Product);
+            }
         }
     }
 }
