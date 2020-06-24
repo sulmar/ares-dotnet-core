@@ -20,6 +20,7 @@
 <script>
     const connection = new signalR.HubConnectionBuilder()
         .withUrl("/signalr/products")
+        .withAutomaticReconnect([0, 10, 10000])
         .build();
 
     connection.start()

@@ -22,6 +22,7 @@ namespace Ares.SignalR.Sender.ConsoleClient
 
             HubConnection connection = new HubConnectionBuilder()
                 .WithUrl(url, options => options.Headers.Add("Authorization", $"Bearer {token}"))
+                .WithAutomaticReconnect()
                 .Build();
 
             await connection.StartAsync();
