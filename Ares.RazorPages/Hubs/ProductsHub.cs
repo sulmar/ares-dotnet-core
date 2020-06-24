@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Ares.RazorPages.Hubs
 {
+    // https://docs.microsoft.com/pl-pl/aspnet/core/signalr/security?view=aspnetcore-3.1
     public class ProductsHub : Hub
     {
         public override Task OnConnectedAsync()
