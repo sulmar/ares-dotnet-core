@@ -8,3 +8,35 @@
     <h1 class="display-4">Witamy!</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
+
+
+<div>
+    <ul id="messages"></ul>
+</div>
+
+<script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
+
+<script>
+    const connection = new signalR.HubConnectionBuilder()
+        .withUrl("/signalr/products")
+        .build();
+
+    connection.start()
+        .then(()=>console.log('connected'))
+        .catch(err => console.error(err.toString()));
+
+    connection.on('ChangedProduct', (product) => {
+        console.log(product.name);
+        appendLine(product.name);
+    });
+
+
+    function appendLine(name) {
+        let li = document.createElement('li');
+        li.innerText = name;
+        document.getElementById('messages').appendChild(li);
+    };
+
+</script>
+

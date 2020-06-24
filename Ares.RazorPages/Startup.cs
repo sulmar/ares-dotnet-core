@@ -6,6 +6,7 @@ using Ares.Domain.Models;
 using Ares.Domain.Services;
 using Ares.Infrastructure.Fakers;
 using Ares.Infrastructure.FakeServices;
+using Ares.RazorPages.Hubs;
 using Bogus;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -44,8 +45,9 @@ namespace Ares.RazorPages
                 options.InstanceName = "ares";
             });
 
-           
 
+            services.AddSignalR();
+           
             services.AddRazorPages();
         }
 
@@ -72,6 +74,8 @@ namespace Ares.RazorPages
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHub<ProductsHub>("/signalr/products");
+
                 endpoints.MapRazorPages();
             });
         }

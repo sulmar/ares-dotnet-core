@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Caching.Distributed;
 using Ares.RazorPages.Extensions;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.SignalR;
+using Ares.RazorPages.Hubs;
 
 namespace Ares.RazorPages.Pages.Products
 {
@@ -24,23 +26,33 @@ namespace Ares.RazorPages.Pages.Products
         private readonly IProductRepository productRepository;
         private readonly IDistributedCache distributedCache;
 
+        private readonly IHubContext<ProductsHub> hubContext;
+
         private readonly ILogger<EditModel> logger;
 
-        public EditModel(IProductRepository productRepository, IDistributedCache distributedCache, ILogger<EditModel> logger)
+        public EditModel(
+            IProductRepository productRepository, 
+            IDistributedCache distributedCache, 
+            ILogger<EditModel> logger,
+            IHubContext<ProductsHub> hubContext
+            )
         {
             this.productRepository = productRepository;
             this.distributedCache = distributedCache;
             this.logger = logger;
+            this.hubContext = hubContext;
         }
 
         [BindProperty]
         public Product Product { get; set; }
 
-        public IActionResult OnGet(int id, string param1, [FromQuery] Location location)
+        public async Task<IActionResult> OnGetAsync(int id, string param1, [FromQuery] Location location)
         {
             // var param1 = this.Request.Query["param1"];
           
             Product = distributedCache.Get<Product>($"product-{id}");
+
+            await hubContext.Clients.All.SendAsync("ChangedProduct", Product);
 
             if (Product == null)
             {
@@ -59,7 +71,7 @@ namespace Ares.RazorPages.Pages.Products
             return Page();
         }
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
@@ -71,6 +83,8 @@ namespace Ares.RazorPages.Pages.Products
             //productRepository.Update(Product);
 
             TempData["Message"] = $"Product {Product.Name} was changed.";
+
+            await hubContext.Clients.All.SendAsync("ChangedProduct", Product);
 
             return RedirectToPage("./Details", new { Id = Product.Id });
         }

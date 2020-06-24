@@ -18,6 +18,8 @@ namespace Ares.SignalR
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSignalR();
+
+            services.AddRazorPages();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -33,6 +35,8 @@ namespace Ares.SignalR
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapHub<MessagesHub>("/signalr/messages");
+
+                endpoints.MapRazorPages();
 
                 endpoints.MapGet("/", async context =>
                 {
