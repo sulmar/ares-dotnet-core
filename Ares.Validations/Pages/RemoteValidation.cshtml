@@ -13,6 +13,11 @@
             <input type="text" asp-for="Email" class="form-control" />
             <span asp-validation-for="Email" class="text-danger"></span>
 
+
+            <label asp-for="PhoneNumber" class="control-label" />
+            <input type="text" asp-for="PhoneNumber" class="form-control" />
+            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+
             <input type="submit" />
         </form>
 
@@ -23,5 +28,10 @@
 @section scripts{
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <partial name="_ValidationScriptsPartial" />
-    <script src="~/lib/jquery-ajax-unobtrusive/dist/jquery.unobtrusive-ajax.min.js"></script>
+
+    <script src="~/lib/jquery-ajax-unobtrusive/dist/jquery.unobtrusive-ajax.js"></script>
+
+    @*<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>*@
+
+    @*<script src="~/lib/jquery-ajax-unobtrusive/dist/jquery.unobtrusive-ajax.min.js"></script>*@
 }

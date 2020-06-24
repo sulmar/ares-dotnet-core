@@ -18,8 +18,24 @@ namespace Ares.Validations.Pages
         }
 
        
+
+        [PageRemote(
+            PageHandler = "CheckEmail",
+            HttpMethod = "post",
+            ErrorMessage = "Duplicate Email Address",
+            AdditionalFields = "__RequestVerificationToken"
+            )]
         [BindProperty]
         public string Email { get; set; }
+
+        [PageRemote(
+          PageHandler = "CheckEmail",
+          HttpMethod = "post",
+          ErrorMessage = "Duplicate Email Address",
+          AdditionalFields = "__RequestVerificationToken"
+          )]
+        [BindProperty]
+        public string PhoneNumber { get; set; }
 
         public void OnGet()
         {
@@ -33,6 +49,7 @@ namespace Ares.Validations.Pages
 
         public JsonResult OnPostCheckEmail()
         {
+            
             var valid = !customerService.ExistsEmail(Email);
             return new JsonResult(valid);
         }
