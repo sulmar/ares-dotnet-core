@@ -50,7 +50,8 @@ namespace Ares.RazorPages
 
             services.AddRazorPages(options =>
             {
-                options.Conventions.AddPageRoute("/Products/Index", "");
+                options.Conventions.AuthorizePage("/Privacy");
+                options.Conventions.AuthorizeFolder("/Products");
             });
         }
 
