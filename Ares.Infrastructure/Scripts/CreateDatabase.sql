@@ -57,3 +57,13 @@ CREATE TABLE [dbo].[Addresses](
 GO
 
 
+  create procedure [dbo].[uspUserAuthorize](
+              @UserId nvarchar(50),
+			  @HashedPassword nvarchar(50)
+             )
+             as 
+             begin
+				select top(1) * from dbo.Users where UserId = @UserId and HashedPassword = @HashedPassword
+             end
+
+GO
